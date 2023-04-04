@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Q&A Pairs2</title>
+	<title>Q&A Pairs3</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
@@ -63,22 +63,24 @@
 
 	<style>
 		
-		#question {
+		question {
 			width: 100%;
   			box-sizing: border-box;
   			padding: 10px;
 		}
 		
-		#answer {
+		answer {
 			color: white;
 			text-align: center;
-			background-color: green;
 		}
-		
+		answer span {
+			
+			background-color: green;			
+		}
 
 	</style>
 
-	<h1>Q&A Pairs2</h1>
+	<h1>Q&A Pairs3</h1>
 	<select id="question">
 		<option value="">Select a question</option>
 	</select>
@@ -90,7 +92,7 @@
 			if (this.readyState == 4 && this.status == 200) {
 				var data = this.responseText.split(/\r?\n/);
 				var questions = {};
-				for (var i = 0; i < data.length; i++) {
+				for (var i = 1; i < data.length; i++) {
 					var row = data[i].split(",");
 					var question = row[1];
 					var answer = row[2];
