@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Q&A Pairso3</title>
+	<title>Q&A Pairs</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
@@ -53,14 +53,16 @@
 	</style>
 </head>
 <body>
+
 	<style>
 		#answer {
 			color: white;
 			text-align: center;
+			background-color: black;
 		}
 	</style>
-	
-	<h1>Q&A Pairso3</h1>
+
+	<h1>Q&A Pairs</h1>
 	<select id="question">
 		<option value="">Select a question</option>
 	</select>
@@ -71,24 +73,25 @@
 		xhr.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = this.responseText.split(/\r?\n/);
+				var questions = {};
 				for (var i = 0; i < data.length; i++) {
 					var row = data[i].split(",");
 					var question = row[1];
 					var answer = row[2];
-					var qaPair = { question: question, answer: answer };
-					select.options[select.options.length] = new Option(question, JSON.stringify(qaPair));
+					questions[question] = answer;
+					select.options[select.options.length] = new Option(question, question);
 				}
 				select.addEventListener("change", function() {
-					var qaPair = JSON.parse(select.value);
-					if (qaPair.question != "") {
-						document.getElementById("answer").innerHTML = qaPair.answer;
+					var question = select.value;
+					if (question != "") {
+						document.getElementById("answer").innerHTML = questions[question];
 					} else {
 						document.getElementById("answer").innerHTML = "";
 					}
 				});
 			}
 		};
-		xhr.open("GET", "questionANDans.csv", true);
+		xhr.open("GET", "questionANDans", true);
 		xhr.send();
 	</script>
 </body>
