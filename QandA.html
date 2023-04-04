@@ -64,18 +64,17 @@
 		xhr.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = this.responseText.split(/\r?\n/);
-				var questions = {};
 				for (var i = 0; i < data.length; i++) {
 					var row = data[i].split(",");
 					var question = row[0];
 					var answer = row[1];
-					questions[question] = answer;
-					select.options[select.options.length] = new Option(question, question);
+					var qaPair = { question: question, answer: answer };
+					select.options[select.options.length] = new Option(question, JSON.stringify(qaPair));
 				}
 				select.addEventListener("change", function() {
-					var question = select.value;
-					if (question != "") {
-						document.getElementById("answer").innerHTML = questions[question];
+					var qaPair = JSON.parse(select.value);
+					if (qaPair.question != "") {
+						document.getElementById("answer").innerHTML = qaPair.answer;
 					} else {
 						document.getElementById("answer").innerHTML = "";
 					}
